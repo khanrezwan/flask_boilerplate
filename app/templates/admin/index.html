@@ -1,0 +1,13 @@
+{% extends 'admin/master.html' %}
+{% import 'macros.html' as macros %}
+{% block body %}
+     <ul class="nav-pills nav-stacked">
+     <li> <a class="btn btn-info" href="{{ url_for('main.index') }}"><i class="glyphicon glyphicon-home"> Home</i></a></li>
+     {% if current_user.is_authenticated() %}
+         <li><a class="btn btn-primary" href="{{ url_for('auth.logout') }}"><i class="glyphicon glyphicon-log-in"> Log Out</i></a></li>
+
+     {% else %}
+        <li><a class="btn btn-primary" href="{{ url_for('auth.login') }}"><i class="glyphicon glyphicon-log-in"> Log in</i></a></li>
+     {% endif %}
+     </ul>
+{% endblock %}

@@ -1,0 +1,22 @@
+{% macro render_navbar_link(comment, h_ref='#') %}
+    <li><a href={{ h_ref }}>{{ comment }}</a></li>
+{% endmacro %}
+
+{% macro add_panel_start(panel_title='', panel_color = 'panel-primary', alignment='center') %}
+    <div class="panel {{ panel_color }}">
+    <div class="panel-heading">
+        {% if panel_title %}
+            <h3 class="panel-title">{{ panel_title }}</h3>
+        {% else %}
+            <h3 class="panel-title"> </h3>
+        {% endif %}
+    </div>
+    <div class="panel-body text-{{ alignment }}">
+
+
+{% endmacro %}
+
+{% macro add_panel_end() %}
+    </div>
+    </div>
+{% endmacro %}
