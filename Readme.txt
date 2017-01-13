@@ -23,8 +23,7 @@ I will assume you are using virtualenv to install $ sudo apt-get install virtual
 [11] Add all template files under app/templates . Also in Pycharm right-click on the folder Mark Directory As > Template Folder
     [a] Use copy_my_code_view.html as boilerplate of new template files
 [12] Add all database models under app/models.py file
-[13] I have used wind_data_parser.py in views.index method
-[14] Finally run $ decativate to quit virtualenv
+[13] Finally run $ decativate to quit virtualenv
 
 Migrations:
 must be db admin for this
@@ -51,39 +50,39 @@ Deployment Apache2:
 [1] sudo apt-get install libapache2-mod-wsgi python-dev
 [2] sudo a2enmod wsgi 
 [3] cd /var/www
-[4] sudo git clone https://rezwankhan@bitbucket.org/rezwankhan/cse_fest.git
+[4] sudo git clone https://github.com/khanrezwan/flask_boilerplate.git
 [5] sudo apt-get install python-pip
 [6] sudo pip install virtualenv
-[7] cd /var/www/cse_fest
+[7] cd /var/www/flask_boilerplate
 [8] sudo virtualenv venv
 [9] source venv/bin/activate
 [10] sudo pip install -r requirements.txt
-[11] sudo chown www-data /var/www/cse_fest/data-dev.sqlite  ##use this to enable sqlite
-[12] sudo chown www-data /var/www/cse_fest  ## use this to enable sqlite
-[13] sudo nano /var/www/cse_fest/cse_fest.wsgi
+[11] sudo chown www-data /var/www/flask_boilerplate/data-dev.sqlite  ##use this to enable sqlite
+[12] sudo chown www-data /var/www/flask_boilerplate  ## use this to enable sqlite
+[13] sudo nano /var/www/cse_fest/flask_boilerplate.wsgi
  #add following lines 
 #!/usr/bin/python
 
-activate_this = '/var/www/cse_fest/venv/bin/activate_this.py'
+activate_this = '/var/www/flask_boilerplate/venv/bin/activate_this.py'
 execfile(activate_this, dict(__file__=activate_this))
 import sys
 import logging
 logging.basicConfig(stream=sys.stderr)
-sys.path.insert(0,'/var/www/cse_fest')
+sys.path.insert(0,'/var/www/flask_boilerplate')
 
 from manage import app as application
 
 
-[14] sudo nano /etc/apache2/sites-available/cse_fest.conf   and add following lines for apache2-mpm-prefork
+[14] sudo nano /etc/apache2/sites-available/flask_boilerplate.conf   and add following lines for apache2-mpm-prefork
 
 <VirtualHost *:80>
-                WSGIScriptAlias / /var/www/cse_fest/cse_fest.wsgi
-                <Directory /var/www/cse_fest/>
+                WSGIScriptAlias / /var/www/flask_boilerplate/flask_boilerplate.wsgi
+                <Directory /var/www/flask_boilerplate/>
                         Order allow,deny
                         Allow from all
                 </Directory>
-                Alias /static /var/www/cse_fest/app/static
-                <Directory /var/www/cse_fest/app/static/>
+                Alias /static /var/www/flask_boilerplate/app/static
+                <Directory /var/www/flask_boilerplate/app/static/>
                         Order allow,deny
                         Allow from all
                 </Directory>
@@ -92,7 +91,7 @@ from manage import app as application
                 CustomLog ${APACHE_LOG_DIR}/access.log combined
 </VirtualHost>
 
-[15] sudo a2ensite cse_fest
+[15] sudo a2ensite flask_boilerplate
 [16] sudo service apache2 restart 
 
 apache2_mpm_ worker
@@ -110,15 +109,15 @@ It may b prefork / event or worker
 
 <VirtualHost *:80>
 		WSGIDaemonProcess cse_fest user=www-data group=www-data threads=5                
-		WSGIScriptAlias / /var/www/cse_fest/cse_fest.wsgi
-                <Directory /var/www/cse_fest/>
-			WSGIProcessGroup cse_fest
+		WSGIScriptAlias / /var/www/flask_boilerplate/flask_boilerplate.wsgi
+                <Directory /var/www/flask_boilerplate/>
+			WSGIProcessGroup flask_boilerplate
         		WSGIApplicationGroup %{GLOBAL}
                         Order allow,deny
                         Allow from all
                 </Directory>
-                Alias /static /var/www/cse_fest/app/static
-                <Directory /var/www/cse_fest/app/static/>
+                Alias /static /var/www/flask_boilerplate/app/static
+                <Directory /var/www/flask_boilerplate/app/static/>
                         Order allow,deny
                         Allow from all
                 </Directory>
@@ -129,16 +128,16 @@ It may b prefork / event or worker
 
 This one also works
 <VirtualHost *:80>
-		ServerName csefest.local		
-		WSGIDaemonProcess cse_fest user=www-data group=www-data threads=5                
-		WSGIScriptAlias / /var/www/cse_fest/cse_fest.wsgi
-                <Directory /var/www/cse_fest/>
-			WSGIProcessGroup cse_fest
+		ServerName flask_boilerplate.local		
+		WSGIDaemonProcess flask_boilerplate user=www-data group=www-data threads=5                
+		WSGIScriptAlias / /var/www/flask_boilerplate/flask_boilerplate.wsgi
+                <Directory /var/www/flask_boilerplate/>
+			WSGIProcessGroup flask_boilerplate
         		WSGIApplicationGroup %{GLOBAL}
                         Order allow,deny
                         Allow from all
                 </Directory>
-                Alias /static /var/www/cse_fest/app/static
+                Alias /static /var/www/flask_boilerplate/app/static
                 <Directory /var/www/cse_fest/app/static/>
                         Order allow,deny
                         Allow from all
